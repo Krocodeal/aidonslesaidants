@@ -17,7 +17,7 @@ class Ticket
     private $id;
 
     /**  
-     * @ORM\Column(ty="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $status;
 
