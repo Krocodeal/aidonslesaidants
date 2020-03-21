@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aidons les aidants{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/ticket/list.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div class="container-sm">
+        <div id="headForm">
+            <h2 class="text-center text-uppercase pt-5">Liste des demandes</h2>
+
+            <p>
+            ALAID a pour vocation d'aider les professionnel.le.s du corps médical investi.e.s 
+            dans la mobilisation nationale pour lutter contre le COVID-19.
+            Conscient de leur charge de travail, cette application ne s'adresse pas à 
+            eux directement, mais à leurs proches car ces proches connaissent eux aussi 
+            le quotidien difficile des soignant.e.s et disposent surement de plus de temps pour 
+            faire le lien avec des bénévoles citoyens pour répondre à leurs besoins.
+            </p>
+
+            <p>
+            En tant que potentiel bénévole, restez à l'affut des besoins du corps médical via cette page. 
+            Si vous pensez pouvoir répondre à une demande, contactez le proche via le champ prévu à cet effet 
+            dans le détail de la demande. Sinon, merci de partager ce lien à votre entourage !
+            </p>
+        </div>
+
+        <div class="mt-5">
+
+            {% for ticket in tickets %}
+
+                {% if ticket.status === 1 %}
+                {# Ticket ouvert #}
+                <div class="shadow p-3 mb-5 bg-white rounded mr-3 ml-3">
+                  <div class="row">
+                    <div class="col-8">
+                      <p class="my-auto text-perso">{ ticket.title }</p>
+                    </div>
+                    <div class="col-4 border-perso-green">
+                      <p class="text-center my-auto text-perso">{ ticket.status }</p>
+                    </div>
+                  </div>
+                </div>
+
+                {% elseif ticket.status === 2 %}
+                    {# Ticket en cours #}
+                    <div class="shadow p-3 mb-5 bg-white rounded mr-3 ml-3">
+                      <div class="row">
+                        <div class="col-8">
+                          <p class="my-auto text-warning">{ ticket.title }</p>
+                        </div>
+                        <div class="col-4 border-perso-warning">
+                          <p class="text-center my-auto text-warning">{ ticket.status }</p>
+                        </div>
+                      </div>
+                    </div>
+
+                {% elseif ticket.status === 3 %}
+                {# Ticket terminer /cloturer #}
+                    <div class="shadow bg-reverse mb-5 bg-white rounded mr-3 ml-3">
+                      <div class="row text-perso-reverse pt-3 pb-3">
+                        <div class="col-8">
+                          <p class="my-auto">{ ticket.title }</p>
+                        </div>
+                        <div class="col-4 border-perso-white">
+                          <p class="text-center my-auto text-perso-reverse">{ ticket.status }</p>
+                        </div>
+                      </div>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}
